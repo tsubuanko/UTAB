@@ -3,7 +3,7 @@ from django.contrib.auth.views import (
     LoginView, LogoutView,
 )
 from django.http import HttpResponseRedirect
-from django.shortcuts import resolve_url
+from django.shortcuts import resolve_url, redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
 from django.views.generic.edit import (
@@ -17,8 +17,10 @@ from django.views.generic.edit import (
 
 from .mixins import OnlyYouMixin
 from .forms import (
-    LoginForm, UserCreateForm, UserUpdateForm,
+    LoginForm, UserCreateForm, UserUpdateForm, ThreadForm, PostForm
 )
+from .models import Thread, Post
+
 
 
 UserModel = get_user_model()
@@ -78,3 +80,22 @@ class UserDelete(OnlyYouMixin, DeleteView):
     success_url = reverse_lazy('cms:top')
 
 
+class ThreadListView(ListView):
+    model = Thread    # Thread.objects.all()を裏側でやってくれてる
+    template_name = "cms/thread.html"
+
+def post_list(request, pk):
+    per_page = 10
+
+    thread = get_object_or_404(Thread,pk=pk)
+    post_list= Post.objects.filter(thread=thread)
+    form = PostForm(request.POST or None)
+
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.thread = thread
+        post.save()
+        return redirect('cms:post', pk=thread.pk)
+
+    context = {'form': form, 'post_list': post_list}
+    return render(request, 'cms/post.html', context)

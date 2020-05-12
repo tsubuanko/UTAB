@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>タイトル</title>
+</head>
+<body>
+    <h1>掲示板だよ</h1>
+    <ul>
+    {% for post in post_list %}
+        <li>本文：{{ post.message }}</li>
+        <li>投稿日時：{{ post.created_at }}</li>
+<!--        <li>投稿者：{{ post.created_by }}</li>    -->
+    {% endfor %}
+    </ul>
+    <p>とうこうするよ</p>
+    <form action="" method = "POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit">
+    </form>
+</body>
+</html>
