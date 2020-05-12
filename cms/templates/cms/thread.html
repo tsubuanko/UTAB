@@ -1,13 +1,31 @@
 {% extends 'cms/base.html' %}
 
-{% block content %}
-    <div class="contents">
-<ul>
-    {% for item in object_list %}
-    <li><a href="{% url 'cms:post' pk=item.pk %}">{{ item }}</a></li>
-    {% endfor %}
-</ul>
+{% block title %}スレッド一覧 | {% endblock %}
+
+{% block hero %}
+<section class="hero is-small is-link is-bold">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title">スレッド一覧</h1>
+            <h2 class="subtitle">Thread List</h2>
+        </div>
     </div>
+</section>
+{% endblock %}
 
-
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="tile is-ancestor">
+            <div class="tile is-12 is-vertical is-parent">
+                {% for item in object_list %}
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:post' pk=item.pk %}">{{ item }}</a>
+                    <p>Lorem ipsum dolor sit</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

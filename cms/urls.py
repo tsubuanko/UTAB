@@ -16,4 +16,5 @@ urlpatterns = [
 
     path('thread/', views.ThreadListView.as_view(), name='thread'),
     path('thread/<int:pk>/', views.post_list, name='post'),
+    path('thread/add/', views.add_thread, name='thread_add'),
 ]

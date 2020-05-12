@@ -6,9 +6,6 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import resolve_url, redirect, render, get_object_or_404
 from django.urls import reverse_lazy
 from django.views.generic.base import TemplateView
-from django.views.generic.edit import (
-    CreateView, UpdateView,
-)
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.views.generic.edit import (
@@ -17,7 +14,7 @@ from django.views.generic.edit import (
 
 from .mixins import OnlyYouMixin
 from .forms import (
-    LoginForm, UserCreateForm, UserUpdateForm, ThreadForm, PostForm
+    LoginForm, UserCreateForm, UserUpdateForm, ThreadForm, PostForm, 
 )
 from .models import Thread, Post
 
@@ -84,6 +81,7 @@ class ThreadListView(ListView):
     model = Thread    # Thread.objects.all()を裏側でやってくれてる
     template_name = "cms/thread.html"
 
+
 def post_list(request, pk):
     per_page = 10
 
@@ -99,3 +97,15 @@ def post_list(request, pk):
 
     context = {'form': form, 'post_list': post_list}
     return render(request, 'cms/post.html', context)
+
+
+def add_thread(request):
+    form = ThreadForm(request.POST or None)
+
+    if form.is_valid():
+        post = form.save(commit=False)
+        post.save()
+        return redirect('cms:thread')
+
+    context = {'form': form,}
+    return render(request, 'cms/thread_add.html', context)
