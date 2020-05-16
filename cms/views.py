@@ -78,7 +78,7 @@ class UserDelete(OnlyYouMixin, DeleteView):
 
 
 class ThreadListView(ListView):
-    model = Thread    # Thread.objects.all()を裏側でやってくれてる
+    model = Thread
     template_name = "cms/thread.html"
 
 
@@ -92,6 +92,7 @@ def post_list(request, pk):
     if form.is_valid():
         post = form.save(commit=False)
         post.thread = thread
+        post.created_by = request.user
         post.save()
         return redirect('cms:post', pk=thread.pk)
 
@@ -103,8 +104,8 @@ def add_thread(request):
     form = ThreadForm(request.POST or None)
 
     if form.is_valid():
-        post = form.save(commit=False)
-        post.save()
+        thread = form.save()
+        #thread.save()
         return redirect('cms:thread')
 
     context = {'form': form,}

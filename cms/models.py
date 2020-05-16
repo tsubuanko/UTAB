@@ -93,7 +93,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
         abstract = True
 
     def __str__(self):
-        return self.email
+        return self.username
 
     def clean(self):
         super().clean()
@@ -110,7 +110,8 @@ class User(AbstractUser):
 
 
 class Thread(models.Model):
-    subject = models.CharField(max_length=255)
+    subject = models.CharField(max_length=100)
+    code = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.subject
@@ -120,6 +121,6 @@ class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, null=True, related_name='threads')
     message = models.TextField(max_length=3000)
     created_at = models.DateTimeField(auto_now_add=True)
-    #created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='post', null=True)
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user', null=True)
     def __str__(self):
         return self.message

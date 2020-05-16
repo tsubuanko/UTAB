@@ -38,7 +38,7 @@ class UserUpdateForm(forms.ModelForm):
 class ThreadForm(forms.ModelForm):
     class Meta:
         model = Thread
-        fields = ("subject",)
+        fields = ("subject","code")
         
 
 class PostForm(forms.ModelForm):
