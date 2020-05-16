@@ -46,6 +46,11 @@ class ThreadForm(forms.ModelForm):
     class Meta:
         model = Thread
         fields = ("subject","code")
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs['class'] = 'input'
         
 
 class PostForm(forms.ModelForm):

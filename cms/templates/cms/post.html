@@ -1,23 +1,59 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>タイトル</title>
-</head>
-<body>
-    <h1>掲示板だよ</h1>
-    <ul>
-    {% for post in post_list %}
-        <li>本文：{{ post.message }}</li>
-        <li>投稿日時：{{ post.created_at }}</li>
-        <li>投稿者：{{ post.created_by }}</li>
-    {% endfor %}
-    </ul>
-    <p>とうこうするよ</p>
-    <form action="" method = "POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit">
-    </form>
-</body>
-</html>
+{% extends 'cms/base.html' %}
+
+{% block title %}Signup | {% endblock %}
+
+{% block hero %}
+<section class="hero is-small is-link is-bold">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title">スレッド</h1>
+            <h2 class="subtitle">Thread</h2>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="tile is-parent">
+            <div class="tile is-12 is-vertical is-parent">
+                <div class="tile is-child box"></article>
+                    {% for post in post_list %}
+                        {% if post.created_by %}
+                            <a class="title is-4" href="{% url 'cms:user_detail' post.created_by.id %}">{{ post.created_by }}</a>
+                            <p></p>
+                        {% else %}
+                            <p class="title is-4">名無し</p>
+                        {% endif %}
+                        <p class="subtitle">{{ post.created_at }}</p>
+                        <div class="content">
+                            {{ post.message }}
+                        </div>
+                        <hr>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container is-mobile">
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">投稿内容</label>
+                <div class="control">
+                    {{ form.message }}
+                </div>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <button name="next" type="submit" value="confirm" class="button is-success">投稿</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
