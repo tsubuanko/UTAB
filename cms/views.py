@@ -125,6 +125,7 @@ def post_list(request, pk):
 
     thread = get_object_or_404(Thread,pk=pk)
     post_list= Post.objects.filter(thread=thread)
+    post_list=post_list[::-1]
     form = PostForm(request.POST or None)
 
     if form.is_valid():
@@ -134,7 +135,7 @@ def post_list(request, pk):
         post.save()
         return redirect('cms:post', pk=thread.pk)
 
-    context = {'form': form, 'post_list': post_list}
+    context = {'form': form, 'post_list': post_list, 'thread': thread}
     return render(request, 'cms/post.html', context)
 
 

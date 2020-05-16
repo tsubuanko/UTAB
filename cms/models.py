@@ -7,7 +7,6 @@ from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-#from account.models import User
 
 
 # User-related

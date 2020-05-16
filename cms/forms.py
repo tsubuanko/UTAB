@@ -58,3 +58,8 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ("message",)
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['message'].widget.attrs['class'] = 'textarea'
+        self.fields['message'].widget.attrs['placeholder'] = 'にゃーん'
+
