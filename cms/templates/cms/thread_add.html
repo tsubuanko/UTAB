@@ -1,16 +1,34 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <title>タイトル</title>
-</head>
-<body>
-    <h1>スレッドの追加</h1>
-    <p>スレッド名</p>
-    <form action="" method = "POST">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit">
-    </form>
-</body>
-</html>
+{% extends 'cms/base.html' %}
+
+{% block title %}Signup | {% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container is-mobile">
+        <h1 class="title is-4">スレッドの追加</h1>
+        <h2 class="subtitle is-6">Add thread</h2>
+        <hr>
+        <br>
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">スレッド名</label>
+                <div class="control">
+                    {{ form.subject }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">授業コード？</label>
+                <div class="control">
+                    {{ form.code }}
+                </div>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <button name="next" type="submit" value="confirm" class="button is-success">確認</button>
+                </p>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
