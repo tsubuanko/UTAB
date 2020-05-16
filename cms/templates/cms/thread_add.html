@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>タイトル</title>
+</head>
+<body>
+    <h1>スレッドの追加</h1>
+    <p>スレッド名</p>
+    <form action="" method = "POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit">
+    </form>
+</body>
+</html>
