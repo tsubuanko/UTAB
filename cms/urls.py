@@ -13,7 +13,8 @@ urlpatterns = [
     path('user/<int:pk>/', views.UserDetail.as_view(), name='user_detail'),
     path('user/', views.UserList.as_view(), name='user_list'),
     path('user/<int:pk>/delete/', views.UserDelete.as_view(), name='user_delete'),
-
+    path('password_change/',views.PasswordChange.as_view(),name='password_change'),
+    path('password_change/done/',views.PasswordChangeDone.as_view(),name='password_change_done'),
     path('thread/', views.ThreadListView.as_view(), name='thread'),
     path('thread/<int:pk>/', views.post_list, name='post'),
     path('thread/add/', views.add_thread, name='thread_add'),
