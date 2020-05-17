@@ -30,6 +30,7 @@
                     {% if user.is_authenticated %}
                     <div class="buttons">
                         <a class="button is-info navbar-item" href="{% url 'cms:user_detail' user.pk %}"><strong>Your Page</strong></a>
+                        <a class="navbar-item " href="{% url 'cms:favorite_thread' user.pk %}">お気に入りリスト</a>
                         <a class="button is-danger navbar-item" href="{% url 'cms:logout' %}"><strong>Log out</strong></a>
                     </div>
                     {% else %}
