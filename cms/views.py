@@ -15,9 +15,9 @@ from django.views.generic.edit import (
 
 from .mixins import OnlyYouMixin
 from .forms import (
-    LoginForm, UserCreateForm, UserUpdateForm, MyPasswordChangeForm, ThreadForm, PostForm, 
+    LoginForm, UserCreateForm, UserUpdateForm, MyPasswordChangeForm, ThreadForm, PostForm,
 )
-from .models import Thread, Post
+from .models import Thread, Post, Image, ImageForm
 
 
 
@@ -148,3 +148,21 @@ def add_thread(request):
 
     context = {'form': form,}
     return render(request, 'cms/thread_add.html', context)
+
+
+def showall(request):
+    images=Image.objects.all()
+    context={'Images':images}
+    return render(request,'cms/showall.html',context)
+
+def upload(request):
+    #if request.method=='POST':
+        form=ImageForm(request.POST,request.FILES)
+        if form.is_valid():
+            image=form.save()
+            image_gen=request.FILES['picture']
+            return redirect("cms:showall")
+        else:
+            form=ImageForm()
+        context={'form':form}
+        return render(request,'cms/upload.html',context)

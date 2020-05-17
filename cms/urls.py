@@ -1,6 +1,7 @@
 from django.urls import path
-
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'cms'
 
@@ -18,4 +19,8 @@ urlpatterns = [
     path('thread/', views.ThreadListView.as_view(), name='thread'),
     path('thread/<int:pk>/', views.post_list, name='post'),
     path('thread/add/', views.add_thread, name='thread_add'),
+    path("showall/",views.showall,name='showall'),
+    path('upload/',views.upload,name='upload'),
 ]
+#if settings.DEBUG:
+urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

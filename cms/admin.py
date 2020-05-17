@@ -5,7 +5,7 @@ from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.forms import ReadOnlyPasswordHashField
 
 from .models import (
-    User, Thread, Post
+    User, Thread, Post, Image,
 )
 
 
@@ -91,3 +91,4 @@ admin.site.unregister(Group)
 
 admin.site.register(Thread)
 admin.site.register(Post)
+admin.site.register(Image)

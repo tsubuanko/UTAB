@@ -8,7 +8,16 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 #from account.models import User
+from django import forms
 
+
+
+class Thread(models.Model):
+    subject = models.CharField(max_length=100)
+    code = models.CharField(max_length=100, null=True)
+
+    def __str__(self):
+        return self.subject
 
 # User-related
 class UserManager(BaseUserManager):
@@ -109,12 +118,6 @@ class User(AbstractUser):
         swappable = "AUTH_USER_MODEL"
 
 
-class Thread(models.Model):
-    subject = models.CharField(max_length=100)
-    code = models.CharField(max_length=100, null=True)
-
-    def __str__(self):
-        return self.subject
 
 
 class Post(models.Model):
@@ -124,3 +127,18 @@ class Post(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user', null=True)
     def __str__(self):
         return self.message
+
+
+class Image(models.Model):
+    picture=models.ImageField(upload_to='images/')
+    title=models.CharField(max_length=200)
+    def __str__(self):
+        return self.title
+
+class ImageForm(forms.ModelForm):
+    def __init__(self,*args,**kwargs):
+        super(ImageForm,self).__init__(*args,**kwargs)
+    class Meta:
+        model=Image
+        fields=('picture','title',)
+    
