@@ -124,17 +124,21 @@ def post_list(request, pk):
     per_page = 10
 
     thread = get_object_or_404(Thread,pk=pk)
-    post_list= Post.objects.filter(thread=thread)
+    post_list = Post.objects.filter(thread=thread)
+    post_list = post_list[::-1]
     form = PostForm(request.POST or None)
+    user = request.user
+    favorite_list = user.favorite_thread.all()
+    favorite_flag = True if thread in favorite_list else False
 
     if form.is_valid():
         post = form.save(commit=False)
         post.thread = thread
-        post.created_by = request.user
+        post.created_by = user
         post.save()
         return redirect('cms:post', pk=thread.pk)
 
-    context = {'form': form, 'post_list': post_list}
+    context = {'form': form, 'post_list': post_list, 'thread': thread, 'favorite_flag': favorite_flag}
     return render(request, 'cms/post.html', context)
 
 
@@ -150,6 +154,7 @@ def add_thread(request):
     return render(request, 'cms/thread_add.html', context)
 
 
+<<<<<<< HEAD
 def showall(request):
     images=Image.objects.all()
     context={'Images':images}
@@ -166,3 +171,26 @@ def upload(request):
             form=ImageForm()
         context={'form':form}
         return render(request,'cms/upload.html',context)
+=======
+def favorite_thread(request, pk):
+    user = request.user
+    thread_list = user.favorite_thread.all()
+    context = {'thread_list': thread_list, 'user': user}
+    return render(request, 'cms/favorite_thread.html', context)
+
+
+def add_favorite(request, pk):
+    thread = get_object_or_404(Thread, pk=pk)
+    user = request.user
+    user.favorite_thread.add(thread)
+    user.save()
+    return redirect('cms:post', pk=thread.pk)
+
+
+def remove_favorite(request, pk):
+    thread = get_object_or_404(Thread, pk=pk)
+    user = request.user
+    user.favorite_thread.remove(thread)
+    user.save()
+    return redirect('cms:post', pk=thread.pk)
+>>>>>>> 16d6f5f408a1dbd370acba934706e4e4b8c70ec9

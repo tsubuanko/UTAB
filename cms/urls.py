@@ -19,8 +19,15 @@ urlpatterns = [
     path('thread/', views.ThreadListView.as_view(), name='thread'),
     path('thread/<int:pk>/', views.post_list, name='post'),
     path('thread/add/', views.add_thread, name='thread_add'),
+<<<<<<< HEAD
     path("showall/",views.showall,name='showall'),
     path('upload/',views.upload,name='upload'),
 ]
 #if settings.DEBUG:
 urlpatterns+=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+=======
+    path('user/<int:pk>/favorite_thread/', views.favorite_thread, name='favorite_thread'),
+    path('thread/<int:pk>/add_favorite/', views.add_favorite, name='add_favorite'),
+    path('thread/<int:pk>/remove_favorite/', views.remove_favorite, name='remove_favorite'),
+]
+>>>>>>> 16d6f5f408a1dbd370acba934706e4e4b8c70ec9

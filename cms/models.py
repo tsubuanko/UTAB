@@ -7,8 +7,19 @@ from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
+<<<<<<< HEAD
 #from account.models import User
 from django import forms
+=======
+
+
+class Thread(models.Model):
+    subject = models.CharField(max_length=100)
+    code = models.CharField(max_length=100, null=True)
+
+    def __str__(self):
+        return self.subject
+>>>>>>> 16d6f5f408a1dbd370acba934706e4e4b8c70ec9
 
 
 
@@ -90,6 +101,8 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
     twitter = models.CharField(_('Twitter'), max_length=50, blank=True)
 
+    favorite_thread = models.ManyToManyField(Thread, blank=True)
+
     objects = UserManager()
 
     EMAIL_FIELD = 'email'
@@ -118,8 +131,11 @@ class User(AbstractUser):
         swappable = "AUTH_USER_MODEL"
 
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 16d6f5f408a1dbd370acba934706e4e4b8c70ec9
 class Post(models.Model):
     thread = models.ForeignKey(Thread, on_delete=models.CASCADE, null=True, related_name='threads')
     message = models.TextField(max_length=3000)
