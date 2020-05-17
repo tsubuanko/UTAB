@@ -9,6 +9,14 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
 
+class Thread(models.Model):
+    subject = models.CharField(max_length=100)
+    code = models.CharField(max_length=100, null=True)
+
+    def __str__(self):
+        return self.subject
+
+
 # User-related
 class UserManager(BaseUserManager):
     use_in_migrations = True
@@ -80,6 +88,8 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
     twitter = models.CharField(_('Twitter'), max_length=50, blank=True)
 
+    favorite_thread = models.ManyToManyField(Thread, blank=True)
+
     objects = UserManager()
 
     EMAIL_FIELD = 'email'
@@ -106,14 +116,6 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 class User(AbstractUser):
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"
-
-
-class Thread(models.Model):
-    subject = models.CharField(max_length=100)
-    code = models.CharField(max_length=100, null=True)
-
-    def __str__(self):
-        return self.subject
 
 
 class Post(models.Model):
