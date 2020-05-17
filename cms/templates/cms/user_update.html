@@ -1,6 +1,31 @@
 {% extends 'cms/base.html' %}
 
 {% block title %}{{ user.username }} | {% endblock %}
+<!--ユーザ名を表示-->
+{% block hero %}
+<section class="hero is-link is-bold">
+    <div class="hero-body">
+        <div class="container">
+            <div class="media">
+                <div class="media-left">
+                    <figure class="image is-64x64 is-left">
+                        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                    </figure>
+                </div>
+                <div class="media-content">
+                    <h1 class="title">
+                        <!--<span class="icon is-small is-left"><i class="fas fa-user"></i></span>-->
+                        {{ user.username }}
+                    </h1>
+                    <h2 class="subtitle">
+                        {{ user.last_name }} {{ user.first_name }}
+                    </h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
 
 {% block content %}
 <section class="section">

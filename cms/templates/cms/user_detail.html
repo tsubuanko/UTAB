@@ -14,16 +14,23 @@
                 </div>
                 <div class="media-content">
                     <h1 class="title">
-                        {{ user.last_name }} {{ user.first_name }}
+                        <!--<span class="icon is-small is-left"><i class="fas fa-user"></i></span>-->
+                        {{ user.username }}
                     </h1>
                     <h2 class="subtitle">
-                        {{ user.username }}
+                        {{ user.last_name }} {{ user.first_name }}
                     </h2>
                     {% if user.pk == request.user.pk %}
                     <a href="{% url 'cms:user_update' user.pk %}">
                         <button class="button is-small is-info is-inverted is-outlined">
                             <span class="icon is-small is-left"><i class="fas fa-user-edit"></i></span>
-                            <strong>プロフィールを追加する</strong>
+                            <strong>プロフィールを追加・編集する</strong>
+                        </button>
+                    </a>
+                    <a href="{% url 'cms:password_change'%}">
+                        <button class="button is-small is-info is-inverted is-outlined">
+                            <span class="icon is-small is-left"><i class="fas fa-user-edit"></i></span>
+                            <strong>パスワードを変更する</strong>
                         </button>
                     </a>
                     {% endif %}
@@ -49,7 +56,11 @@
                 {% endif %}
             </div>
         </div>
-        <p>今日も1日がんばるぞい</p>
+        <div class="buttons">
+            <a class="button is-info" href="{% url 'cms:thread'%}"><strong>スレッドを見る</strong></a>
+        </div>
+        <p>＊プロフィールの編集、パスワードの変更などは上記メニューより行ってください。</p>
+        
     </div>
 </section>
 {% endblock %}
