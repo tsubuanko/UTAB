@@ -13,6 +13,7 @@
         <form method="post" action="">
             {% csrf_token %}
             <div class="field">
+                <a class="button is-info navbar-item" href="{% url 'cms:user_detail' user.pk %}"><strong>Cancel</strong></a>
                 <p class="control">
                     <input type="submit" value="確認して削除" class="button is-danger">
                     <input type="hidden" name="next" value="{{ next }}" >

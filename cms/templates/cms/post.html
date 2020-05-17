@@ -1,44 +1,19 @@
 {% extends 'cms/base.html' %}
 
-{% block title %}{{ thread }} | {% endblock %}
+{% block title %}Signup | {% endblock %}
 
 {% block hero %}
 <section class="hero is-small is-link is-bold">
     <div class="hero-body">
         <div class="container has-text-centered">
-            <h1 class="title">{{ thread }}</h1>
-            <h2 class="subtitle">{{ thread.code }}</h2>
-            {{favorite_flag}}
-            {% if favorite_flag %}
-                <a class="button is-info navbar-item" href="{% url 'cms:remove_favorite' thread.id %}"><strong>お気に入り解除</strong></a>            
-            {% else %}
-                <a class="button is-info navbar-item" href="{% url 'cms:add_favorite' thread.id %}"><strong>お気に入り登録</strong></a>         
-            {% endif %}
+            <h1 class="title">スレッド</h1>
+            <h2 class="subtitle">Thread</h2>
         </div>
     </div>
 </section>
 {% endblock %}
 
 {% block content %}
-<section class="section">
-    <div class="container is-mobile">
-        <form method="post" action="">
-            {% csrf_token %}
-            <div class="field">
-                <label class="label">新規投稿</label>
-                <div class="control">
-                    {{ form.message }}
-                </div>
-            </div>
-            <div class="field">
-                <p class="control">
-                    <button name="next" type="submit" value="confirm" class="button is-success">投稿</button>
-                </p>
-            </div>
-        </form>
-    </div>
-</section>
-
 <section class="section">
     <div class="container">
         <div class="tile is-parent">
@@ -60,6 +35,25 @@
                 </div>
             </div>
         </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container is-mobile">
+        <form method="post" action="">
+            {% csrf_token %}
+            <div class="field">
+                <label class="label">投稿内容</label>
+                <div class="control">
+                    {{ form.message }}
+                </div>
+            </div>
+            <div class="field">
+                <p class="control">
+                    <button name="next" type="submit" value="confirm" class="button is-success">投稿</button>
+                </p>
+            </div>
+        </form>
     </div>
 </section>
 {% endblock %}
