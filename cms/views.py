@@ -154,7 +154,6 @@ def add_thread(request):
     return render(request, 'cms/thread_add.html', context)
 
 
-<<<<<<< HEAD
 def showall(request):
     images=Image.objects.all()
     context={'Images':images}
@@ -171,26 +170,3 @@ def upload(request):
             form=ImageForm()
         context={'form':form}
         return render(request,'cms/upload.html',context)
-=======
-def favorite_thread(request, pk):
-    user = request.user
-    thread_list = user.favorite_thread.all()
-    context = {'thread_list': thread_list, 'user': user}
-    return render(request, 'cms/favorite_thread.html', context)
-
-
-def add_favorite(request, pk):
-    thread = get_object_or_404(Thread, pk=pk)
-    user = request.user
-    user.favorite_thread.add(thread)
-    user.save()
-    return redirect('cms:post', pk=thread.pk)
-
-
-def remove_favorite(request, pk):
-    thread = get_object_or_404(Thread, pk=pk)
-    user = request.user
-    user.favorite_thread.remove(thread)
-    user.save()
-    return redirect('cms:post', pk=thread.pk)
->>>>>>> 16d6f5f408a1dbd370acba934706e4e4b8c70ec9
