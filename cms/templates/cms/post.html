@@ -7,7 +7,12 @@
     <div class="hero-body">
         <div class="container has-text-centered">
             <h1 class="title">{{ thread }}</h1>
-             <h2 class="subtitle">{{ thread.code }}</h2>
+            <h2 class="subtitle">{{ thread.code }}</h2>
+            {% if favorite_flag %}
+                <a class="button is-info navbar-item" href="{% url 'cms:remove_favorite' thread.id %}"><strong>お気に入り解除</strong></a>            
+            {% else %}
+                <a class="button is-info navbar-item" href="{% url 'cms:add_favorite' thread.id %}"><strong>お気に入り登録</strong></a>         
+            {% endif %}
         </div>
     </div>
 </section>
