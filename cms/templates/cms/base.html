@@ -21,8 +21,6 @@
                 <!-- HAMBURGER MENU -->
                 <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="my-menu">
                     <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
-                    <span aria-hidden="true"></span>
                 </a>
             </div>
             <div class="navbar-menu" id="my-menu">
@@ -38,13 +36,14 @@
                     <div class="buttons">
                         <a class="button is-primary navbar-item" href="{% url 'cms:signup' %}"><strong>Sign up</strong></a>
                         <a class="button is-info navbar-item" href="{% url 'cms:login' %}"><strong>Log in</strong></a>
-                    </div>
+                  </div>
                     {% endif %}
                 </div>
             </div>
         </nav>
     </header>
     <!-- MESSAGE -->
+    <!-- YOSHIKAWA これ何？ -->
     {% for field, errors in form.errors.items %}
     <article class="message is-warning">
         <div class="message-body">
@@ -57,6 +56,7 @@
     <!-- MAIN -->
     <main>
         {% block hero %}{% endblock %}
+        <!--YOSHIKAWA BLOCK TABっているんかな-->
         {% block tab %}{% endblock %}
         {% block content %}{% endblock %}
     </main>
