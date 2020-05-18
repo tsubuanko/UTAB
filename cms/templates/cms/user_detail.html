@@ -1,6 +1,6 @@
 {% extends 'cms/base.html' %}
 
-{% block title %}{{ user.last_name }} {{ user.first_name }} | {% endblock %}
+{% block title %}{{ user.username }} | {% endblock %}
 
 {% block hero %}
 <section class="hero is-link is-bold">
@@ -25,12 +25,12 @@
                         <button class="button is-small is-info is-inverted is-outlined">
                             <span class="icon is-small is-left"><i class="fas fa-user-edit"></i></span>
                             <strong>プロフィールを追加・編集する</strong>
-                        </button>
-                    </a>
-                    <a href="{% url 'cms:password_change'%}">
-                        <button class="button is-small is-info is-inverted is-outlined">
-                            <span class="icon is-small is-left"><i class="fas fa-user-edit"></i></span>
-                            <strong>パスワードを変更する</strong>
+                         </button>
+                     </a>
+                     <a href="{% url 'cms:password_change'%}">
+                         <button class="button is-small is-info is-inverted is-outlined">
+                             <span class="icon is-small is-left"><i class="fas fa-user-edit"></i></span>
+                             <strong>パスワードを変更する</strong>
                         </button>
                     </a>
                     {% endif %}
@@ -60,7 +60,6 @@
             <a class="button is-info" href="{% url 'cms:thread'%}"><strong>スレッドを見る</strong></a>
         </div>
         <p>＊プロフィールの編集、パスワードの変更などは上記メニューより行ってください。</p>
-        
     </div>
 </section>
 {% endblock %}
