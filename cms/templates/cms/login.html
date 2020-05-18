@@ -26,13 +26,14 @@
                     <span class="icon is-small is-left"><i class="fas fa-lock"></i></span>
                 </div>
             </div>
+            <div class="contanier">
+                <a class="help" href="{% url 'cms:password_reset' %}">パスワードを忘れた場合</a>
             <div class="field">
                 <p class="control">
                     <input type="submit" value="ログイン" class="button is-success">
                     <input type="hidden" name="next" value="{{ next }}" >
                 </p>
             </div>
-        </form>
     </div>
 </section>
 {% endblock %}

@@ -1,8 +1,7 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 from django.conf import settings
 from django.conf.urls.static import static
-
 app_name = 'cms'
 
 urlpatterns = [
@@ -16,10 +15,14 @@ urlpatterns = [
     path('user/<int:pk>/delete/', views.UserDelete.as_view(), name='user_delete'),
     path('password_change/',views.PasswordChange.as_view(),name='password_change'),
     path('password_change/done/',views.PasswordChangeDone.as_view(),name='password_change_done'),
+    path('password_reset_form/',views.PasswordReset.as_view(),name='password_reset'),
+    path('password_reset/done/',views.PasswordResetDoneView.as_view(),name='password_reset_done'),
+    path('reset/<uidb64>/<token>/',views.PasswordResetConfirm.as_view(),name='password_reset_confirm'),
+    path('reset/done/',views.PasswordResetCompleteView.as_view(),name='password_reset_complete'),
     path('thread/', views.ThreadListView.as_view(), name='thread'),
     path('thread/<int:pk>/', views.post_list, name='post'),
     path('thread/add/', views.add_thread, name='thread_add'),
-    path("showall/",views.showall,name='showall'),
+    #path("showall/",views.showall,name='showall'),
     path('upload/',views.upload,name='upload'),
 ]
 #if settings.DEBUG:

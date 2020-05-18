@@ -9,7 +9,7 @@
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-64x64 is-left">
-                        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                        <img class="is-rounded" src="{{user.profile_picture.url}}" width="240">
                     </figure>
                 </div>
                 <div class="media-content">
@@ -69,6 +69,8 @@
                     {{ form.twitter }}
                     <span class="icon is-small is-left"><i class="fab fa-twitter"></i></span>
                 </div>
+            </div>
+            <div class="field">
             </div>
             <div class="field">
                 <p class="control">

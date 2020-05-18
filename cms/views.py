@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model, login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import (
-    LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
+    LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView, PasswordResetView, 
+    PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView,
 )
 from django.http import HttpResponseRedirect
 from django.shortcuts import resolve_url, redirect, render, get_object_or_404
@@ -12,16 +13,17 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import (
     CreateView, UpdateView, DeleteView,
 )
-
 from .mixins import OnlyYouMixin
 from .forms import (
     LoginForm, UserCreateForm, UserUpdateForm, MyPasswordChangeForm, ThreadForm, PostForm,
 )
 from .models import Thread, Post, Image, ImageForm
-
-
-
+from django.db import models
+from django.conf import settings
+from django_cleanup.signals import cleanup_pre_delete
 UserModel = get_user_model()
+
+import os
 
 class TopView(TemplateView):
     template_name = 'cms/top.html'
@@ -73,7 +75,7 @@ class UserUpdate(OnlyYouMixin, UpdateView):
 
     def get_success_url(self):
         return resolve_url('cms:user_detail', pk=self.kwargs['pk'])
-
+    
 
 class OnlyYouMixin(UserPassesTestMixin):
     raise_exception=True
@@ -108,12 +110,21 @@ class PasswordChange(PasswordChangeView):
     form_class=MyPasswordChangeForm
     success_url=reverse_lazy('cms:password_change_done')
     template_name='cms/password_change_form.html'
-
-
 class PasswordChangeDone(PasswordChangeDoneView):
     """パスワードを変更しました"""
     template_name='cms/password_change_done.html'
 
+
+class PasswordReset(PasswordResetView):
+    #subject_template_name='cms/templates/mail_template/subject.txt'
+    success_url=reverse_lazy('cms:password_reset_done')
+    #email_template_name='cms/password_reset_email.txt'
+    template_name='cms/password_reset_form.html'
+
+class PasswordResetConfirm(PasswordResetConfirmView):
+    """新パスワード入力ページ"""
+    success_url=reverse_lazy('cms:password_reset_complete')
+    template_name='cms/password_reset_confirm.html'
 
 class ThreadListView(ListView):
     model = Thread
@@ -159,14 +170,35 @@ def showall(request):
     context={'Images':images}
     return render(request,'cms/showall.html',context)
 
+
+
 def upload(request):
     #if request.method=='POST':
         form=ImageForm(request.POST,request.FILES)
         if form.is_valid():
+            models.ImageField(upload_to='profile_picture',blank=True)
+            target_dir=os.path(settings.MEDIA_ROOT+'/profile_picture')
+            shutil.rmtree(target_dir)
+            os.mkdir(target_dir)
             image=form.save()
-            image_gen=request.FILES['picture']
-            return redirect("cms:showall")
+            return redirect('cms:user_detail')
         else:
             form=ImageForm()
         context={'form':form}
         return render(request,'cms/upload.html',context)
+
+"""
+def SaveProfile(request):
+    saved=False
+    if request.method=='POST':
+        MyProfileForm=ProfileForm(request.POST,request.FILES)
+        if MyProfileForm.is_valid():
+            profile=Profile()
+            profile.name=MyProfileForm.cleaned_data['name']
+            profile.picture=MyProfileForm.cleand_data['picture']
+            profile.save()
+            saved=True
+        else:
+            MyProfileForm=ProfileForm()
+        return render(request,'saved.html',locals())
+"""

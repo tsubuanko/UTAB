@@ -1,7 +1,7 @@
 from django.contrib.auth.base_user import (
     AbstractBaseUser, BaseUserManager,
 )
-from django.contrib.auth.models import PermissionsMixin
+from django.contrib.auth.models import PermissionsMixin, AbstractUser, UserManager
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.core.mail import send_mail
 from django.db import models
@@ -10,7 +10,7 @@ from django.utils.translation import gettext_lazy as _
 #from account.models import User
 from django import forms
 
-
+from .image import delete_previous_file,get_image_path
 
 class Thread(models.Model):
     subject = models.CharField(max_length=100)
@@ -70,7 +70,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
     first_name = models.CharField(_('first name'), max_length=150, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
-
+    profile_picture=models.ImageField(upload_to='profile_picture',blank=True)
     email = models.EmailField(_('email address'), unique=True)
 
     is_staff = models.BooleanField(
@@ -97,7 +97,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
-
+    PICTURE_FIELD='media/profile_picture'
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
@@ -132,7 +132,12 @@ class Post(models.Model):
 
 
 class Image(models.Model):
-    picture=models.ImageField(upload_to='images/')
+    @delete_previous_file
+    def save(self,force_insert=False,force_update=False,using=None,update_fields=None):
+        super(Image,self).save()
+    def delete(self,using=None,keep_parents=False):
+        super(Image,self).delete()
+    picture=models.ImageField(upload_to='profile_picture')
     title=models.CharField(max_length=200)
     def __str__(self):
         return self.title
@@ -143,4 +148,9 @@ class ImageForm(forms.ModelForm):
     class Meta:
         model=Image
         fields=('picture','title',)
-    
+
+class Profile(models.Model):
+    name=models.CharField(max_length=50)
+    picture=models.ImageField(upload_to='profile_picture')
+    class Meta:
+        db_table='profile'
