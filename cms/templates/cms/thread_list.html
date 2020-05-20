@@ -1,13 +1,12 @@
 {% extends 'cms/base.html' %}
 
-{% block title %}お気に入りスレッド一覧 | {% endblock %}
+{% block title %}{{ faculty }} | {% endblock %}
 
 {% block hero %}
 <section class="hero is-small is-link is-bold">
     <div class="hero-body">
         <div class="container has-text-centered">
-            <h1 class="title">お気に入りのスレッド</h1>
-            <h2 class="subtitle">Favorite Thread List</h2>
+            <h1 class="title">{{ faculty }}</h1>
         </div>
     </div>
 </section>
@@ -18,11 +17,13 @@
     <div class="container">
         <div class="tile is-ancestor">
             <div class="tile is-12 is-vertical is-parent">
-                {% for thread in thread_list %}
+                {% for item in object_list %}
+                {% if item.faculty == faculty %}
                 <div class="tile is-child box">
-                    <a class="title is-4" href="{% url 'cms:post' pk=thread.pk %}">{{ thread }}</a>
+                    <a class="title is-4" href="{% url 'cms:post' pk=item.pk %}">{{ item }}</a>
                     <p>Lorem ipsum dolor sit</p>
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
         </div>

@@ -7,7 +7,7 @@
     <div class="hero-body">
         <div class="container has-text-centered">
             <h1 class="title">{{ thread }}</h1>
-            <h2 class="subtitle">{{ thread.code }}</h2>
+            <h2 class="subtitle">{{ thread.faculty }} {{ thread.code }}</h2>
             {% if favorite_flag %}
                 <a class="button is-info navbar-item" href="{% url 'cms:remove_favorite' thread.id %}"><strong>お気に入り解除</strong></a>            
             {% else %}
@@ -24,7 +24,7 @@
         <form method="post" action="">
             {% csrf_token %}
             <div class="field">
-                <label class="label">投稿内容</label>
+                <label class="label">新規投稿</label>
                 <div class="control">
                     {{ form.message }}
                 </div>

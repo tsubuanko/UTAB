@@ -1,6 +1,6 @@
 {% extends 'cms/base.html' %}
 
-{% block title %}Signup | {% endblock %}
+{% block title %}スレッドの追加 | {% endblock %}
 
 {% block content %}
 <section class="section">
@@ -21,6 +21,12 @@
                 <label class="label">授業コード</label>
                 <div class="control">
                     {{ form.code }}
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">学部</label>
+                <div class="control">
+                    {{ form.faculty }}
                 </div>
             </div>
             <div class="field">

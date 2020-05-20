@@ -1,0 +1,58 @@
+{% extends 'cms/base.html' %}
+
+{% block title %}学部一覧 | {% endblock %}
+
+{% block hero %}
+<section class="hero is-small is-link is-bold">
+    <div class="hero-body">
+        <div class="container has-text-centered">
+            <h1 class="title">学部一覧</h1>
+            <h2 class="subtitle">学部一覧</h2>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block content %}
+<section class="section">
+    <div class="container">
+        <div class="tile is-ancestor">
+            <div class="tile is-12 is-vertical is-parent">
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=1 %}">前期教養学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=2 %}">後期教養学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=3 %}">法学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=4 %}">経済学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=5 %}">文学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=6 %}">教育学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=7 %}">理学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=8 %}">工学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=9 %}">農学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=10 %}">薬学部</a>
+                </div>
+                <div class="tile is-child box">
+                    <a class="title is-4" href="{% url 'cms:thread_filter' pk=11 %}">医学部</a>
+                </div>       
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -45,12 +45,13 @@ class MyPasswordChangeForm(PasswordChangeForm):
 class ThreadForm(forms.ModelForm):
     class Meta:
         model = Thread
-        fields = ("subject","code")
+        fields = ("subject","code","faculty")
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        for field in self.fields.values():
-            field.widget.attrs['class'] = 'input'
+        self.fields['subject'].widget.attrs['class'] = 'input'
+        self.fields['code'].widget.attrs['class'] = 'input'
+        self.fields['faculty'].widget.attrs['class'] = 'select'
         
 
 class PostForm(forms.ModelForm):

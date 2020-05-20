@@ -175,3 +175,20 @@ def remove_favorite(request, pk):
     user.favorite_thread.remove(thread)
     user.save()
     return redirect('cms:post', pk=thread.pk)
+
+
+class ThreadListView_filter(ListView):
+    model = Thread
+    template_name = "cms/thread_list.html"
+
+    def get_context_data(self, **kwargs):
+        faculty_id=self.kwargs['pk']
+        faculty_dic={1:'前期教養学部',2:'後期教養学部',3:'法学部',4:'経済学部',5:'文学部',6:'教育学部',7:'理学部',8:'工学部',9:'農学部',10:'薬学部',11:'医学部'}
+        faculty=faculty_dic[faculty_id]
+        context = super().get_context_data(**kwargs)
+        context['faculty'] = faculty
+        return context
+
+
+def faculty_list(request):
+    return render(request, 'cms/faculty.html')

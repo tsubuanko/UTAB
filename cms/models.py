@@ -10,8 +10,11 @@ from django.utils.translation import gettext_lazy as _
 
 
 class Thread(models.Model):
+    faculty_list = (('前期教養学部','前期教養学部'),('後期教養学部','後期教養学部'),('法学部','法学部'),('経済学部','経済学部'),('文学部','文学部'),('教育学部','教育学部'),('理学部','理学部'),('工学部','工学部'),('農学部','農学部'),('薬学部','薬学部'),('医学部','医学部'),)
+
     subject = models.CharField(max_length=100)
     code = models.CharField(max_length=100, null=True)
+    faculty = models.CharField(max_length=20, null=True, choices=faculty_list)
 
     def __str__(self):
         return self.subject
