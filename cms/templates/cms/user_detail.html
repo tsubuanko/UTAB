@@ -9,7 +9,12 @@
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-64x64 is-left">
+                        {% if user.profile_picture %}
                         <img class="is-rounded" src="{{user.profile_picture.url}}" width="240">
+                        {% else $}
+                        <img class="is-rounded" src="https://www.saitama-np.co.jp/kijikokoku/arakawa_upper/img/01_poster.jpg">
+                        {% endif %}
+                        
                     </figure>
                 </div>
                 <div class="media-content">
