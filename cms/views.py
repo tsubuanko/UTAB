@@ -1,7 +1,8 @@
 from django.contrib.auth import get_user_model, login, authenticate
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.views import (
-    LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView
+    LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView,
+    PasswordResetView,PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView,
 )
 from django.http import HttpResponseRedirect
 from django.shortcuts import resolve_url, redirect, render, get_object_or_404
@@ -113,6 +114,18 @@ class PasswordChange(PasswordChangeView):
 class PasswordChangeDone(PasswordChangeDoneView):
     """パスワードを変更しました"""
     template_name='cms/password_change_done.html'
+
+
+class PasswordReset(PasswordResetView):
+    #subject_template_name='cms/templates/mail_template/subject.txt'
+    success_url=reverse_lazy('cms:password_reset_done')
+    #email_template_name='cms/password_reset_email.txt'
+    template_name='registration/password_reset_form.html'
+
+class PasswordResetConfirm(PasswordResetConfirmView):
+    """新パスワード入力ページ"""
+    success_url=reverse_lazy('cms:password_reset_complete')
+    template_name='registration/password_reset_confirm.html'
 
 
 class ThreadListView(ListView):
