@@ -98,7 +98,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     EMAIL_FIELD = 'email'
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
-    PICTURE_FIELD='media/profile_picture'
+    PICTURE_FIELD='profile_picture'
     class Meta:
         verbose_name = _('user')
         verbose_name_plural = _('users')
