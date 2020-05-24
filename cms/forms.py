@@ -11,6 +11,8 @@ class LoginForm(AuthenticationForm):
        super().__init__(*args, **kwargs)
        self.fields['username'].widget.attrs['class'] = 'input'
        self.fields['password'].widget.attrs['class'] = 'input'
+       self.fields['username'].widget.attrs['placeholder'] = 'Name'
+       self.fields['password'].widget.attrs['placeholder'] = 'Password'
 
 
 class UserCreateForm(UserCreationForm):
@@ -22,7 +24,10 @@ class UserCreateForm(UserCreationForm):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'input'
-
+        self.fields['username'].widget.attrs['placeholder'] = 'Name'
+        self.fields['email'].widget.attrs['placeholder'] = 'xxx@g.ecc.u-tokyo.ac.jp'
+        self.fields['password1'].widget.attrs['placeholder'] = 'at least 8 characters'
+        self.fields['password2'].widget.attrs['placeholder'] = 'confirmation'
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
@@ -62,5 +67,5 @@ class PostForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['message'].widget.attrs['class'] = 'textarea'
-        self.fields['message'].widget.attrs['placeholder'] = 'にゃーん'
+        self.fields['message'].widget.attrs['placeholder'] = 'テキストを入力'
 
