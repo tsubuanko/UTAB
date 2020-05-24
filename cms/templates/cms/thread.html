@@ -21,7 +21,8 @@
                 {% for item in object_list %}
                 <div class="tile is-child box">
                     <a class="title is-4" href="{% url 'cms:post' pk=item.pk %}">{{ item }}</a>
-                    <p>Lorem ipsum dolor sit</p>
+                    <br>
+                    <a class="title is-6"href="{% url 'cms:post' pk=item.pk %}">{{ item.code }}</a>
                 </div>
                 {% endfor %}
             </div>

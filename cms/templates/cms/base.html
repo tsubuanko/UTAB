@@ -12,36 +12,78 @@
 <body>
     <!-- NAVIGATION BAR -->
     <header>
-        <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <!-- LOGO -->
-                <a class="navbar-item" href="/">
-                    <img src="{% static 'images/logo.png' %}" width="10%" height="10%">
-                </a>
-                <!-- HAMBURGER MENU -->
-                <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="my-menu">
-                    <span aria-hidden="true"></span>
-                </a>
-            </div>
-            <div class="navbar-menu" id="my-menu">
-                <div class="navbar-end">
-                    {% if user.is_authenticated %}
-                    <div class="buttons">
-                        <a class="button is-info navbar-item" href="{% url 'cms:user_detail' user.pk %}"><strong>Your Page</strong></a>
-                        <a class="button is-warning navbar-item" href="{% url 'cms:favorite_thread' user.pk %}"><strong>お気に入り</strong></a>
-                        <a class="button is-danger navbar-item" href="{% url 'cms:logout' %}"><strong>Log out</strong></a>
-                    </div>
-                    {% else %}
-                <!--    <a class="navbar-item is-grey" href="#">About</a>  -->
-                    <div class="buttons">
-                        <a class="button is-primary navbar-item" href="{% url 'cms:signup' %}"><strong>Sign up</strong></a>
-                        <a class="button is-info navbar-item" href="{% url 'cms:login' %}"><strong>Log in</strong></a>
-                  </div>
-                    {% endif %}
-                </div>
-            </div>
-        </nav>
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+      
+    <a class="navbar-item" href="/">
+      <img src="{% static 'images/logo.png' %}" width="80" height="40">
+      <!--ここをサイズを大きくしすぎるとどうやら死ぬみたい-->
+    </a>
+
+    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+
+  <div id="navbarBasicExample" class="navbar-menu">
+ <!--   <div class="navbar-start">
+      <a class="navbar-item">
+        Home
+      </a>
+
+      <a class="navbar-item">
+        Documentation
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More
+        </a>
+
+        <div class="navbar-dropdown">
+          <a class="navbar-item">
+            About
+          </a>
+          <a class="navbar-item">
+            Jobs
+          </a>
+          <a class="navbar-item">
+            Contact
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">
+            Report an issue
+          </a>
+        </div>
+      </div>
+    </div>
+-->
+
+    <div class="navbar-end">
+      <div class="navbar-item">
+        {% if user.is_authenticated %}
+        <div class="buttons">
+            <a class="button is-info navbar-item" href="{% url 'cms:user_detail' user.pk %}"><strong>Your Page</strong></a>
+            <a class="button is-warning navbar-item" href="{% url 'cms:favorite_thread' user.pk %}"><strong>お気に入り</strong></a>
+                        <a class="button is-success navbar-item" href="{% url 'cms:faculty' %}"><strong>スレッド一覧</strong></a>
+            <a class="button is-danger navbar-item" href="{% url 'cms:logout' %}"><strong>Log out</strong></a>
+        </div>
+        {% else %}
+        <div class="buttons">
+            <a class="button is-primary navbar-item" href="{% url 'cms:signup' %}"><strong>Sign up</strong></a>
+            <a class="button is-info navbar-item" href="{% url 'cms:login' %}"><strong>Log in</strong></a>
+      </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</nav>
     </header>
+    
+    
+
     <!-- MESSAGE -->
     <!-- YOSHIKAWA これ何？ -->
     {% for field, errors in form.errors.items %}
@@ -67,10 +109,11 @@
                 2020 UTokyo Project Sprint <strong>UTAB</strong><br>
                 <img src="{% static 'images/logo.png' %}" width="20%" height="20%">
             </div>
-            <div class="content has-text-centered">
-                <a href="#" class="has-text-dark">About</a> |
+                <div class="content has-text-centered">
+           <!-- <a href="#" class="has-text-dark">About</a> |
                 <a href="#" class="has-text-dark">Contact</a> |
-                <a href="#" class="has-text-danger">Report an issue</a>
+                <a href="#" class="has-text-danger">Report an issue</a>-->
+                Supported by some members of eeic2020.
             </div>
         </div>
     </footer>

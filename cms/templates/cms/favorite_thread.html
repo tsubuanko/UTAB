@@ -21,7 +21,10 @@
                 {% for thread in thread_list %}
                 <div class="tile is-child box">
                     <a class="title is-4" href="{% url 'cms:post' pk=thread.pk %}">{{ thread }}</a>
-                    <p>Lorem ipsum dolor sit</p>
+                    <br>
+                    <a class="title is-6"href="{% url 'cms:post' pk=thread.pk %}">{{ thread.code }}</a>
+                    <!--<p>{{thread.code}}</p>-->
+                    <!--<p>Lorem ipsum dolor sit</p>-->
                 </div>
                 {% endfor %}
             </div>

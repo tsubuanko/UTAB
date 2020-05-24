@@ -1,20 +1,29 @@
 {% extends 'cms/base.html' %}
+{% load static %}
 
 {% block title %}Home | {% endblock %}
 
 {% block hero %}
 <section class="hero is-medium is-info is-bold">
-    <div class="hero-body">
+    <div class="hero-body" style="background-image: url('{% static 'images/table.png' %}')">
         <div class="container">
             <div class="has-text-centered">
             <h1 class="title">What's UTAB?</h1><br>
-            <h2 class="subtitle">UTABは、東京大学電気電子・電子情報工学科の学生により作成されました。<br>コロナ禍のなか、教室で雑談をし、課題について相談をする場所がなくなってしまいました。<br>UTABは、そのような貴重な場を、オンライン上て提供します。<br>サインアップは、<a href = "{% url 'cms:signup' %}">こちら</a>よりお気軽にどうぞ。</h2>
+            <h2 class="subtitle">UTABは、東京大学電気電子・電子情報工学科の学生により作成されました。<br>コロナ禍のなか、教室で雑談をし、課題について相談をする場所がなくなってしまいました。<br>UTABは、そのような貴重な場を、オンライン上て提供します。
+            {% if user.is_authenticated %}
+                <!--<a href="{% url 'cms:signup' %}"><strong>サインアップはこちらから</strong></a>-->
+            <!--
             <a href="#">
                 <button class="button is-info is-inverted is-outlined">
                     <strong>More Info</strong>
                 </button>
-            </a>
+            </a>-->
             </div>
+            {%else%}
+            <div class="has-text-centered has-text-danger">
+                <a href="{% url 'cms:signup' %}"><strong>サインアップはこちらから</strong></a>
+            </div>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -24,8 +33,8 @@
 <section class="section is-medium">
     <div class="container">
         <div class="has-text-centered">
-            <h1 class="title">Section</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <h1 class="title">Announce</h1>
+            <p>2020.5.28 UTAB β版をリリース。</p>
         </div>
     </div>
 </section>
