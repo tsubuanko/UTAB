@@ -15,6 +15,7 @@
 {% block content %}
 <section class="section">
     <div class="container">
+        <a class="button is-info navbar-item" href="{% url 'cms:thread_add' %}"><strong>スレッドを追加</strong></a>  
         <div class="tile is-ancestor">
             <div class="tile is-12 is-vertical is-parent">
                 {% for item in object_list %}
