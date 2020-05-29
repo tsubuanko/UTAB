@@ -161,7 +161,7 @@ def add_thread(request):
     if form.is_valid():
         thread = form.save()
         #thread.save()
-        return redirect('cms:thread')
+        return redirect('cms:faculty')
 
     context = {'form': form,}
     return render(request, 'cms/thread_add.html', context)
