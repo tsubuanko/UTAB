@@ -1,13 +1,10 @@
 from .common import *
 
-
 DEBUG = False
-
 
 ALLOWED_HOSTS = [
     'Utab-env.eba-ue4s4zg3.us-east-1.elasticbeanstalk.com',
 ]
-
 
 DATABASES = {
     'default': {
@@ -19,6 +16,5 @@ DATABASES = {
         'PORT': os.environ['RDS_PORT'],
     }
 }
-
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'www', 'static')
