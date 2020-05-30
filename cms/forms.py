@@ -30,7 +30,7 @@ class UserCreateForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'confirmation'
 
 class UserUpdateForm(forms.ModelForm):
-    profile_picture=forms.ImageField(widget=forms.FileInput)
+    profile_picture=forms.ImageField(widget=forms.FileInput,required=False)
     class Meta:
         model = UserModel
         fields = ('username',  'twitter','profile_picture')
