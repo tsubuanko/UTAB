@@ -17,9 +17,9 @@
                         <!--<span class="icon is-small is-left"><i class="fas fa-user"></i></span>-->
                         {{ user.username }}
                     </h1>
-                    <h2 class="subtitle" >
+                    <!-- <h2 class="subtitle" >
                         {{ user.last_name }} {{ user.first_name }}
-                    </h2>
+                    </h2> -->
                     {% if user.pk == request.user.pk %}
                     <a href="{% url 'cms:user_update' user.pk %}">
                         <button class="button is-small is-info is-inverted is-outlined">

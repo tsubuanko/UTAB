@@ -53,7 +53,7 @@ class UserCreate(CreateView):
             user = form.save()
             user=authenticate(
             username=form.cleaned_data['username'],
-            email=form.cleaned_data['email'],
+            # email=form.cleaned_data['email'],
             password=form.cleaned_data['password1'],
             )
             login(self.request, user)

@@ -18,21 +18,21 @@ class LoginForm(AuthenticationForm):
 class UserCreateForm(UserCreationForm):
     class Meta:
         model = UserModel
-        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field in self.fields.values():
             field.widget.attrs['class'] = 'input'
         self.fields['username'].widget.attrs['placeholder'] = 'Name'
-        self.fields['email'].widget.attrs['placeholder'] = 'xxx@g.ecc.u-tokyo.ac.jp'
+        # self.fields['email'].widget.attrs['placeholder'] = 'xxx@g.ecc.u-tokyo.ac.jp'
         self.fields['password1'].widget.attrs['placeholder'] = 'at least 8 characters'
         self.fields['password2'].widget.attrs['placeholder'] = 'confirmation'
 
 class UserUpdateForm(forms.ModelForm):
     class Meta:
         model = UserModel
-        fields = ('username', 'first_name', 'last_name', 'email', 'twitter')
+        fields = ('username',  'twitter')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
