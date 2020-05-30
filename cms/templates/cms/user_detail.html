@@ -56,10 +56,12 @@
                 {% endif %}
             </div>
         </div>
+        {% if user.pk == request.user.pk %}
         <div class="buttons">
             <a class="button is-info" href="{% url 'cms:favorite_thread' user.pk %}"><strong>登録したスレッド</strong></a>
         </div>
         <p>＊プロフィールの編集、パスワードの変更などは上記メニューより行ってください。</p>
+        {% endif %}
     </div>
 </section>
 {% endblock %}
