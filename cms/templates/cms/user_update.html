@@ -9,9 +9,12 @@
             <div class="media">
                 <div class="media-left">
                     <figure class="image is-64x64 is-left">
-                        <img class="is-rounded" src="https://bulma.io/images/placeholders/128x128.png">
+                         {% if user.profile_picture %}
+                        <img class="is-rounded" src="{{user.profile_picture.url}}">
+                        {% endif %}
                     </figure>
                 </div>
+               
                 <div class="media-content">
                     <h1 class="title">
                         <!--<span class="icon is-small is-left"><i class="fas fa-user"></i></span>-->
@@ -33,7 +36,7 @@
         <h1 class="title is-4">ユーザー情報の更新</h1>
         <h2 class="subtitle is-6">Update your information</h2>
         <hr>
-        <form method="post" action="">
+        <form method="post" class="post-form" action="" enctype="multipart/form-data">
             {% csrf_token %}
             <div class="field">
                 <label class="label">ユーザーネーム</label>
@@ -63,6 +66,13 @@
                     <span class="icon is-small is-left"><i class="fab fa-twitter"></i></span>
                 </div>
             </div>
+             <div class="field">
+                 <label class="label">プロフィール画像</label>
+                 <div class="control has-icons-left">
+                     {{ form.profile_picture }}
+                     <span class="icon is-small is-left"><i class="fab fa-twitter"></i></span>
+                 </div>
+             </div>
             <div class="field">
                 <p class="control">
                     <input type="submit" value="保存" class="button is-success">

@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm, UserCreationForm, PasswordChangeForm
-from .models import Thread, Post
+from .models import Thread, Post, AbstractUser
 
 UserModel = get_user_model()
 
@@ -30,9 +30,10 @@ class UserCreateForm(UserCreationForm):
         self.fields['password2'].widget.attrs['placeholder'] = 'confirmation'
 
 class UserUpdateForm(forms.ModelForm):
+    profile_picture=forms.ImageField(widget=forms.FileInput)
     class Meta:
         model = UserModel
-        fields = ('username',  'twitter')
+        fields = ('username',  'twitter','profile_picture')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -68,4 +69,3 @@ class PostForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['message'].widget.attrs['class'] = 'textarea'
         self.fields['message'].widget.attrs['placeholder'] = 'テキストを入力'
-

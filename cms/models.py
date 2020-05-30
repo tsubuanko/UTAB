@@ -7,7 +7,7 @@ from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from .image import delete_previous_file,get_image_path
+#from .image import delete_previous_file,get_image_path
 from django import forms
 class Thread(models.Model):
     faculty_list = (('前期教養学部','前期教養学部'),('後期教養学部','後期教養学部'),('法学部','法学部'),('経済学部','経済学部'),('文学部','文学部'),('教育学部','教育学部'),('理学部','理学部'),('工学部','工学部'),('農学部','農学部'),('薬学部','薬学部'),('医学部','医学部'),)
@@ -71,7 +71,6 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
     first_name = models.CharField(_('first name'), max_length=150, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
-    profile_picture=models.ImageField(upload_to='profile_picture',blank=True)
     #email = models.EmailField(_('email address'), unique=True)
     email = models.EmailField(_('email address'))
 
@@ -89,6 +88,7 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
         ),
     )
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    profile_picture=models.ImageField(upload_to='profile_picture/',blank=True, null=True)
 
     twitter = models.CharField(_('Twitter'), max_length=50, blank=True)
 
@@ -130,27 +130,3 @@ class Post(models.Model):
     def __str__(self):
         return self.message
 
-
-class Image(models.Model):
-    @delete_previous_file
-    def save(self,force_insert=False,force_update=False,using=None,update_fields=None):
-        super(Image,self).save()
-    def delete(self,using=None,keep_parents=False):
-        super(Image,self).delete()
-    picture=models.ImageField(upload_to='profile_picture')
-    title=models.CharField(max_length=200)
-    def __str__(self):
-        return self.title
-
-class ImageForm(forms.ModelForm):
-    def __init__(self,*args,**kwargs):
-        super(ImageForm,self).__init__(*args,**kwargs)
-    class Meta:
-        model=Image
-        fields=('picture','title',)
-
-class Profile(models.Model):
-    name=models.CharField(max_length=50)
-    picture=models.ImageField(upload_to='profile_picture')
-    class Meta:
-        db_table='profile'

@@ -1,7 +1,7 @@
 from django.urls import path
-
+from django.conf.urls.static import static
 from . import views
-
+from django.conf.urls.static import settings
 app_name = 'cms'
 
 urlpatterns = [
@@ -28,3 +28,4 @@ urlpatterns = [
     path('thread_list/<int:pk>/', views.ThreadListView_filter.as_view(), name='thread_filter'),
     path('faculty/', views.faculty_list, name='faculty'),
 ]
+urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

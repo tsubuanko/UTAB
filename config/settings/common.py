@@ -130,3 +130,5 @@ AUTH_USER_MODEL = 'cms.User'
 LOGIN_URL = 'cms:login'
 LOGIN_REDIRECT_URL = 'cms:top'
 LOGOUT_REDIRECT_URL = 'cms:top'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
+MEDIA_URL='/media/'

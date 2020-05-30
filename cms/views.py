@@ -71,8 +71,8 @@ class UserUpdate(OnlyYouMixin, UpdateView):
     model = UserModel
     form_class = UserUpdateForm
     template_name = 'cms/user_update.html'
-
     def get_success_url(self):
+        
         return resolve_url('cms:user_detail', pk=self.kwargs['pk'])
 
 
