@@ -44,13 +44,20 @@
             <div class="tile is-12 is-vertical is-parent">
                 <div class="tile is-child box">
                     {% for post in post_list %}
-                        {% if post.created_by %}
-                            <a class="title is-4" href="{% url 'cms:user_detail' post.created_by.id %}">{{ post.created_by }}</a>
-                            <p></p>
-                        {% else %}
-                            <p class="title is-4">名無し</p>
-                        {% endif %}
-                        <p class="title is-6">{{ post.created_at }}</p>
+                        <div class="media">
+                            <div class="media-left">
+                                <figure class="image is-64x64 is-left">
+                                    {% if post.created_by.profile_picture %}
+                                        <img class="is-rounded" src="{{user.profile_picture.url}}">
+                                    {% endif %}
+                                </figure>
+                            </div>
+                            <div class="media-content">
+                                <a class="title is-4" href="{% url 'cms:user_detail' post.created_by.id %}">{{ post.created_by }}</a>
+                                <p></p>
+                                <p class="title is-6">{{ post.created_at }}</p>
+                            </div>
+                        </div>
                         <div class="content">
                             {{ post.message }}
                         </div>
