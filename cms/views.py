@@ -4,6 +4,7 @@ from django.contrib.auth.views import (
     LoginView, LogoutView, PasswordChangeView, PasswordChangeDoneView,
     PasswordResetView,PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView,
 )
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import resolve_url, redirect, render, get_object_or_404
 from django.urls import reverse_lazy
@@ -18,7 +19,7 @@ from .mixins import OnlyYouMixin
 from .forms import (
     LoginForm, UserCreateForm, UserUpdateForm, MyPasswordChangeForm, ThreadForm, PostForm, 
 )
-from .models import Thread, Post
+from .models import Thread, Post, Document 
 
 
 
@@ -205,3 +206,15 @@ class ThreadListView_filter(ListView):
 
 def faculty_list(request):
     return render(request, 'cms/faculty.html')
+
+"""FileUpload"""
+class DocumentCreateView(CreateView):
+    model=Document
+    fields=['upload',]
+    success_url=reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context=super().get_context_data(**kwargs)
+        documents=Documents.objects.all()
+        context['documents']=documents
+        return context

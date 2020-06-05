@@ -9,6 +9,7 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 #from .image import delete_previous_file,get_image_path
 from django import forms
+from .storage_backends import PrivateMediaStorage
 class Thread(models.Model):
     faculty_list = (('前期教養学部','前期教養学部'),('後期教養学部','後期教養学部'),('法学部','法学部'),('経済学部','経済学部'),('文学部','文学部'),('教育学部','教育学部'),('理学部','理学部'),('工学部','工学部'),('農学部','農学部'),('薬学部','薬学部'),('医学部','医学部'),)
 
@@ -130,3 +131,11 @@ class Post(models.Model):
     def __str__(self):
         return self.message
 
+
+class Document(models.Model):
+    uploaded_at=models.DateTimeField(auto_now_add=True)
+    upload=models.FileField()
+class PrivateDocument(models.Model):
+    uploaded_at=models.DateTimeField(auto_now_add=True)
+    upload=models.FileField(storage=PrivateMediaStorage())
+    user=models.ForeignKey(User,related_name='documents',on_delete=False)

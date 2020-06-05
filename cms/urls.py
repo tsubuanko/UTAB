@@ -27,5 +27,6 @@ urlpatterns = [
     path('thread/<int:pk>/remove_favorite/', views.remove_favorite, name='remove_favorite'),
     path('thread_list/<int:pk>/', views.ThreadListView_filter.as_view(), name='thread_filter'),
     path('faculty/', views.faculty_list, name='faculty'),
+    path('uploadfile_test/',views.DocumentCreateView.as_view(),name='document_form')
 ]
 urlpatterns+=static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

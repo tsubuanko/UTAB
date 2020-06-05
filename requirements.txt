@@ -1,4 +1,6 @@
 Django>=2.1,<2.2
 psycopg2==2.8.5
+django-storages==1.9.1
+boto3
 Pillow
 django_cleanup
