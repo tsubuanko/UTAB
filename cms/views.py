@@ -14,7 +14,10 @@ from django.views.generic.list import ListView
 from django.views.generic.edit import (
     CreateView, UpdateView, DeleteView,
 )
-
+from django.db.models import Q
+from django.views.generic import ListView
+from functools import reduce
+from operator import and_
 from .mixins import OnlyYouMixin
 from .forms import (
     LoginForm, UserCreateForm, UserUpdateForm, MyPasswordChangeForm, ThreadForm, PostForm, 
@@ -73,7 +76,6 @@ class UserUpdate(OnlyYouMixin, UpdateView):
     form_class = UserUpdateForm
     template_name = 'cms/user_update.html'
     def get_success_url(self):
-        
         return resolve_url('cms:user_detail', pk=self.kwargs['pk'])
 
 
@@ -194,15 +196,36 @@ def remove_favorite(request, pk):
 class ThreadListView_filter(ListView):
     model = Thread
     template_name = "cms/thread_list.html"
-
     def get_context_data(self, **kwargs):
         faculty_id=self.kwargs['pk']
         faculty_dic={1:'前期教養学部',2:'後期教養学部',3:'法学部',4:'経済学部',5:'文学部',6:'教育学部',7:'理学部',8:'工学部',9:'農学部',10:'薬学部',11:'医学部'}
         faculty=faculty_dic[faculty_id]
         context = super().get_context_data(**kwargs)
         context['faculty'] = faculty
+        context['query']=self.request.GET.get('q','')
+        """👆検索ワード(列)を取得"""
         return context
+    """検索を実行(スレッド名と授業コード両方で検索かけてます)"""
+    def get_queryset(self):
+        word_set=self.request.GET.get('q','')
+        params=self.parse_search_params(word_set)
+        #print(f"params={params}")
+        if params==[]:
+            return Thread.objects.all()
+        else:
+            query=reduce(
+                lambda x,y:x&y,
+                list(map(lambda z:Q(subject__icontains=z)|Q(code__icontains=z),params))
+            )
+            return Thread.objects.filter(query)
 
+    """検索ワード(列)を整形してlistにする"""
+    def parse_search_params(self,words:str):
+        search_words=words.replace('　', ' ').split()
+        for i in range(len(search_words)):
+            search_words[i]=search_words[i].strip(' ')
+        return search_words
+        
 
 def faculty_list(request):
     return render(request, 'cms/faculty.html')

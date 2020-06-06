@@ -16,12 +16,18 @@
                 </div>
                
                 <div class="media-content">
-                    <h1 class="title">
+                    <h1 class="title has-text-weight-light">
                         <!--<span class="icon is-small is-left"><i class="fas fa-user"></i></span>-->
                         {{ user.username }}
                     </h1>
                     <h2 class="subtitle">
-                        {{ user.last_name }} {{ user.first_name }}
+
+                        {{user.faculty}}
+                        {%ifequal user.faculty "前期教養学部"%}
+                        {{user.division}}
+                        {%endifequal%}
+                        {{user.department}}
+                        {{user.grade}}
                     </h2>
                 </div>
             </div>
@@ -59,6 +65,22 @@
                     <span class="icon is-small is-left"><i class="fas fa-user"></i></span>
                 </div>
             </div> -->
+            <div class="field">
+                <label class="label">学部</label>
+                    {{ form.faculty }}
+                </div>
+            <div class="field">
+                <label class="label">科類</label>
+                    {{ form.division }}
+            </div>
+            <div class="field">
+                <label class="label">学科(後期)</label>
+                {{ form.department }}
+            </div>
+             <div class="field">
+                 <label class="label">学年</label>
+                     {{ form.grade }}
+                 </div>
             <div class="field">
                 <label class="label">Twitter</label>
                 <div class="control has-icons-left">

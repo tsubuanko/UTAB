@@ -48,7 +48,7 @@
                             <div class="media-left">
                                 <figure class="image is-64x64 is-left">
                                     {% if post.created_by.profile_picture %}
-                                        <img class="is-rounded" src="{{user.profile_picture.url}}">
+                                        <img class="is-rounded" src="{{post.created_by.profile_picture.url}}">
                                     {% endif %}
                                 </figure>
                             </div>
