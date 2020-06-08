@@ -19,6 +19,15 @@
                         <!--<span class="icon is-small is-left"><i class="fas fa-user"></i></span>-->
                         {{ user.username }}
                     </h1>
+                    <h2 class="subtitle">
+
+                        {{user.faculty}} 
+                        {%ifequal user.faculty "前期教養学部"%}
+                        {{user.division}}
+                        {%endifequal%}
+                        {{user.department}}
+                        {{user.grade}}
+                    </h2>
                     <!-- <h2 class="subtitle" >
                         {{ user.last_name }} {{ user.first_name }}
                     </h2> -->

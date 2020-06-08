@@ -31,15 +31,24 @@ class UserCreateForm(UserCreationForm):
 
 class UserUpdateForm(forms.ModelForm):
     profile_picture=forms.ImageField(widget=forms.FileInput,required=False)
+
     class Meta:
         model = UserModel
-        fields = ('username',  'twitter','profile_picture')
+        fields = ('username','faculty','division','department','grade','twitter','profile_picture')
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['username'].widget.attrs['class'] = 'input'
+        self.fields['faculty'].widget.attrs['class'] = 'select'
+        self.fields['division'].widget.attrs['class'] = 'select'
+        self.fields['department'].widget.attrs['class']='input'
+        self.fields['grade'].widget.attrs['class'] = 'select'
+        self.fields['twitter'].widget.attrs['class'] = 'input'
+        self.fields['profile_picture'].widget.attrs['class'] = 'input'
+        """
         for field in self.fields.values():
             field.widget.attrs['class'] = 'input'
-
+        """
 
 class MyPasswordChangeForm(PasswordChangeForm):
     def __init__(self,*args,**kwargs):

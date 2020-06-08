@@ -13,6 +13,22 @@
 {% endblock %}
 
 {% block content %}
+    <div class="field" align="right">
+    <form action="" method="get" >
+        <input name="q" value="{{query}}" type="text">
+        <button type="submit">スレッドを検索する</button>
+        <button type="reset" onclick="f()" value="リセット">リセット</button>
+    </form>
+    <p>
+        <script>
+            function f(){
+                var search=window.location.seach
+                window.location.search=""
+            }
+        </script>
+    </p>
+    </div>
+
 <section class="section">
     <div class="container">
         <a class="button is-info navbar-item" href="{% url 'cms:thread_add' %}"><strong>スレッドを追加</strong></a>  

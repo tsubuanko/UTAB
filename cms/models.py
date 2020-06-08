@@ -57,7 +57,7 @@ class UserManager(BaseUserManager):
 
 
 class AbstractUser(AbstractBaseUser, PermissionsMixin):
-
+    
     username_validator = UnicodeUsernameValidator()
     username = models.CharField(
         _('username'),
@@ -69,7 +69,13 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
             'unique': _("A user with that username already exists."),
         },
     )
-
+    faculty_list = (('前期教養学部','前期教養学部'),('後期教養学部','後期教養学部'),('法学部','法学部'),('経済学部','経済学部'),('文学部','文学部'),('教育学部','教育学部'),('理学部','理学部'),('工学部','工学部'),('農学部','農学部'),('薬学部','薬学部'),('医学部','医学部'),)
+    division_list=(('文科1類','文科1類'),('文科2類','文科2類'),('文科3類','文科3類'),('理科1類','理科1類'),('理科2類','理科2類'),('理科3類','理科3類'),)
+    grade_list=(('1年','1年'),('2年','2年'),('3年','3年'),('4年','4年'),)
+    faculty=models.CharField(_("faculty"),max_length=10,blank=True,choices=faculty_list)
+    division=models.CharField(_("division"),max_length=10,blank=True,choices=division_list)
+    grade=models.CharField(_("grade"),max_length=10,blank=True,choices=grade_list)
+    department=models.CharField(_("department"),max_length=20,blank=True)
     first_name = models.CharField(_('first name'), max_length=150, blank=True)
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
     #email = models.EmailField(_('email address'), unique=True)
