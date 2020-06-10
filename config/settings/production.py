@@ -3,7 +3,7 @@ from .common import *
 DEBUG = False
 
 ALLOWED_HOSTS = [
-    'Utab-env.eba-ue4s4zg3.us-east-1.elasticbeanstalk.com',
+    'utab-utsprint.us-east-2.elasticbeanstalk.com',
 ]
 
 DATABASES = {
